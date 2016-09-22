@@ -3,8 +3,9 @@
 function log {
 while [ 1 ]   # Endless loop.
 do
-  echo "Log stuff"
-  sleep 30
+  sleep 5
+  echo "Here I go breaking again!"
+  exit
 done
 }
 
