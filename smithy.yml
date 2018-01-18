@@ -1,5 +1,7 @@
 project: python
 language: python
 
+runner_image: drydock-prod.workiva.net/workiva/smithy-runner:224702
+
 script:
   - echo "PIES"
