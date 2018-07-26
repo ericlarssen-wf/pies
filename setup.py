@@ -9,15 +9,13 @@ def read(filename):
     with open(path, 'rb') as f:
         return f.read().decode('utf-8')
 
+dependencies = [dep.strip() for dep in read('requirements.txt').split('\n') if dep.strip()]
+
 setup_args = dict(
     name='pies',
     version='0.0.1',
     packages=find_packages(),
-    install_requires=[
-        'flask',
-        'pyformance',
-        'app_intelligence'
-    ],
+    install_requires=dependencies,
     include_package_data=True,
     entry_points={
         'console_scripts': [
