@@ -1,0 +1,23 @@
+
+[
+  {
+    "ParameterKey": "ClusterName",
+    "ParameterValue": "inf-dev-cf"
+  },
+  {
+    "ParameterKey": "GithubClientId",
+    "ParameterValue": "{{AdmiralGithubClientIdInfDev}}"
+  },
+  {
+    "ParameterKey": "GithubClientSecret",
+    "ParameterValue": "{{AdmiralGithubClientSecretInfDev}}"
+  },
+  {
+    "ParameterKey": "SecretKey",
+    "ParameterValue": "{{AdmiralSecretKeyInfDev}}"
+  },
+  {
+    "ParameterKey": "ServerName",
+    "ParameterValue": "pies.inf-dev.workiva.org"
+  }
+]

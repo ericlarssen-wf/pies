@@ -1,0 +1,11 @@
+{
+  "pies-inf-dev": [
+    {
+      "stackId": "pies",
+      "template": "cloudformation/cloudformation.yml",
+      "parameters": "cloudformation/parameters/default.json",
+      "region": "us-west-2",
+      "stackPolicy": "cloudformation/policies/default-stack-policy.json"
+    }
+  ]
+}

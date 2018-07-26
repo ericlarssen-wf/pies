@@ -1,0 +1,22 @@
+---
+run:
+  when-branch-name-is:
+    - .+
+
+image: python:3.6
+
+requires:
+  workiva/pies:
+    - pypi
+
+scripts:
+  - pip install -q $SKYNET_APPLICATION_PIES_PYPI
+  - pies
+
+size: small
+
+timeout: moderate
+
+contact: |
+  HipChat: Support: InfRe - Operations and Infrastructure
+description: Verify that pies is working correctly.

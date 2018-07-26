@@ -1,0 +1,58 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Pies Stack
+Parameters:
+  ClusterName:
+    Description: The name of the ECS cluster
+    Type: String
+  ServiceName:
+    Description: The name of the service.
+    Type: String
+    Default: pies
+  DockerImage:
+    Description: The docker image to run.
+    Type: String
+    Default:
+  GithubClientId:
+    Description: The Github OAuth application client id.
+    Type: String
+    Default: ''
+  GithubClientSecret:
+    Description: The Github OAuth application client secret.
+    Type: String
+    Default: ''
+    NoEcho: true
+  ServerName:
+    Description: The DNS name for the server.
+    Type: String
+    Default: pies
+Resources:
+  ECSTaskDef:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      ContainerDefinitions:
+        - Cpu: 1024
+          DockerLabels:
+            harbour.consul.acl: !Ref ConsulAcl
+            harbour.dev-log.enable: 'true'
+            harbour.service.name: !Ref ServiceName
+            harbour.service.version: default
+          Environment:
+            - Name: GITHUB_CLIENT_ID
+              Value: !Ref GithubClientId
+            - Name: GITHUB_CLIENT_SECRET
+              Value: !Ref GithubClientSecret
+            - Name: SECRET_KEY
+              Value: !Ref SecretKey
+            - Name: SERVER_NAME
+              Value: !Ref ServerName
+          Essential: true
+          Image: !Ref DockerImage
+          Memory: 512
+          Name: !Ref ServiceName
+      Volumes: []
+  ECSService:
+    Type: AWS::ECS::Service
+    Properties:
+      Cluster: !Ref ClusterName
+      DesiredCount: !Ref DesiredCount
+      TaskDefinition: !Ref ECSTaskDef

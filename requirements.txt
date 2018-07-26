@@ -1,1 +1,6 @@
-flaskiva
+GitHub-Flask
+flask
+app_intelligence
+pyformance
+Flask-SQLAlchemy
+pyOpenSSL>=16, <17
