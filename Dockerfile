@@ -13,7 +13,6 @@ WORKDIR /build/
 COPY . /build/
 
 RUN pip install pip==9.0.3
-RUN pip install app_intelligence-3.2.2.tar.gz
 RUN echo "installing requirements" && \
 		pip install -e . && \
     echo "done"
