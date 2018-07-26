@@ -15,7 +15,7 @@ setup_args = dict(
     packages=find_packages(),
     install_requires=[
         'flask',
-        'pyformance'
+        'pyformance',
         'app_intelligence'
     ],
     include_package_data=True,
