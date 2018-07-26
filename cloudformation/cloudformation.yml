@@ -52,5 +52,5 @@ Resources:
     Type: AWS::ECS::Service
     Properties:
       Cluster: !Ref ClusterName
-      DesiredCount: !Ref DesiredCount
+      DesiredCount: 1
       TaskDefinition: !Ref ECSTaskDef
