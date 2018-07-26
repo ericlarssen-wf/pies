@@ -6,15 +6,15 @@
   },
   {
     "ParameterKey": "GithubClientId",
-    "ParameterValue": "{{AdmiralGithubClientIdInfDev}}"
+    "ParameterValue": "{{PiesGithubClientIdInfDev}}"
   },
   {
     "ParameterKey": "GithubClientSecret",
-    "ParameterValue": "{{AdmiralGithubClientSecretInfDev}}"
+    "ParameterValue": "{{PiesGithubClientSecretInfDev}}"
   },
   {
     "ParameterKey": "SecretKey",
-    "ParameterValue": "{{AdmiralSecretKeyInfDev}}"
+    "ParameterValue": "{{PiesSecretKeyInfDev}}"
   },
   {
     "ParameterKey": "ServerName",

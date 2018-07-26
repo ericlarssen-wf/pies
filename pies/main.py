@@ -17,7 +17,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 DATABASE_URI = 'sqlite:////tmp/github-flask.db'
-SECRET_KEY = 'development key'
+SECRET_KEY = os.getenv('GITHUB_CLIENT_ID', 'development key')
 DEBUG = True
 
 # Set these values

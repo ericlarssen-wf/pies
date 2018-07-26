@@ -11,7 +11,7 @@ Parameters:
   DockerImage:
     Description: The docker image to run.
     Type: String
-    Default:
+    Default: drydock.workiva.net/ericlarssen-wf/pies:make-pies-great-again-latest
   GithubClientId:
     Description: The Github OAuth application client id.
     Type: String
@@ -43,8 +43,6 @@ Resources:
               Value: !Ref GithubClientSecret
             - Name: SECRET_KEY
               Value: !Ref SecretKey
-            - Name: SERVER_NAME
-              Value: !Ref ServerName
           Essential: true
           Image: !Ref DockerImage
           Memory: 512
