@@ -45,7 +45,7 @@ Resources:
           Image: !Ref DockerImage
           Memory: 512
           Name: !Ref ServiceName
-          Entrypoint:
+          EntryPoint:
             - "pies"
       Volumes: []
   ECSService:
