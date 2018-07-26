@@ -21,10 +21,9 @@ Parameters:
     Type: String
     Default: ''
     NoEcho: true
-  ServerName:
-    Description: The DNS name for the server.
+  SecretKey:
+    Description: The Secret Key.
     Type: String
-    Default: pies
 Resources:
   ECSTaskDef:
     Type: AWS::ECS::TaskDefinition
@@ -32,7 +31,6 @@ Resources:
       ContainerDefinitions:
         - Cpu: 1024
           DockerLabels:
-            harbour.consul.acl: !Ref ConsulAcl
             harbour.dev-log.enable: 'true'
             harbour.service.name: !Ref ServiceName
             harbour.service.version: default
