@@ -1,35 +1,30 @@
 import os, time
-from setuptools import find_packages, setup
-from pip.req import parse_requirements
 
-def get_requirements(filename):
-    reqs = parse_requirements(filename)
-    return [str(r.req) for r in reqs]
+from setuptools import setup, find_packages
 
-def get_install_requires():
-    return get_requirements('requirements.txt')
 
-def get_test_requires():
-    return get_requirements('requirements_dev.txt')
+def read(filename):
+    """Read file contents."""
+    path = os.path.realpath(os.path.join(os.path.dirname(__file__), filename))
+    with open(path, 'rb') as f:
+        return f.read().decode('utf-8')
 
 setup_args = dict(
     name='pies',
     version='0.0.1',
     packages=find_packages(),
-    namespace_packages=['pies'],
-    install_requires=get_install_requires(),
-    tests_require=get_test_requires(),
+    install_requires=[
+        'flask',
+        'pyformance'
+        'app_intelligence'
+    ],
+    include_package_data=True,
     entry_points={
         'console_scripts': [
-            'pies-test=pies.util:say_hello'
+            'pies=pies:main'
         ]
     }
 )
 
 if __name__ == '__main__':
-    if os.environ.get('EAT_PIES_SLOWLY'):
-        len = float(os.getenv('EAT_PIES_SLOWLY', 10))
-        print "Going to have a nice little nap for {0} seconds".format(len)
-        time.sleep(len)
-
     setup(**setup_args)

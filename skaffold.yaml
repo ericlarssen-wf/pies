@@ -1,0 +1,19 @@
+apiVersion: skaffold/v1alpha2
+kind: Config
+build:
+  artifacts:
+    - imageName: pies
+      workspace: .
+
+  local:
+    skipPush: null
+
+  googleCloudBuild: null
+  kaniko: null
+deploy:
+  helm:
+    releases:
+      - name: pies
+        chartPath: ./pies
+        values:
+          overrideImageFullName: pies
