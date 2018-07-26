@@ -1,5 +1,10 @@
 FROM python:3.6
 
+ARG PIP_INDEX_URL
+ARG PIP_EXTRA_INDEX_URL=https://pypi.python.org/simple/
+ARG GIT_BRANCH
+ARG GIT_COMMIT
+
 # ARG GIT_SSH_KEY
 # ARG KNOWN_HOSTS_CONTENT
 #
@@ -16,6 +21,8 @@ RUN pip install pip==9.0.3
 RUN echo "installing requirements" && \
 		pip install -e . && \
     echo "done"
+
+RUN python setup.py sdist
 
 ENTRYPOINT ["python"]
 CMD ["pies/main.py"]
