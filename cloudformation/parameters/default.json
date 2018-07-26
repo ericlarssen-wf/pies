@@ -15,9 +15,5 @@
   {
     "ParameterKey": "SecretKey",
     "ParameterValue": "{{PiesSecretKeyInfDev}}"
-  },
-  {
-    "ParameterKey": "ServerName",
-    "ParameterValue": "pies.inf-dev.workiva.org"
   }
 ]
