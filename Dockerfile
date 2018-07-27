@@ -33,6 +33,7 @@ FROM python:2.7
 COPY --from=check /build/dist/* /dist/
 EXPOSE 5000
 
+RUN pip install pip==9.0.3
 RUN pip install --no-index --find-links=/dist $(find /dist -name \*.whl -or -name \*.tar.gz)
 ADD config.py /config.py
 # End final container
