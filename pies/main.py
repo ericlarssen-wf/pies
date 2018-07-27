@@ -27,6 +27,7 @@ GITHUB_CLIENT_SECRET = os.getenv('GITHUB_CLIENT_SECRET')
 # setup flask
 app = Flask(__name__)
 app.config.from_object(__name__)
+app.config['PREFERRED_URL_SCHEME'] = 'https'
 
 # setup github-flask
 github = GitHub(app)
