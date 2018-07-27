@@ -113,7 +113,7 @@ def token_getter():
 @app.route('/github-callback')
 @github.authorized_handler
 def authorized(access_token):
-    next_url = request.args.get('next') or url_for('index', _scheme='https')
+    next_url = request.args.get('next') or url_for('index', _scheme='https', external=True)
     logger.error('next_url: ' + next_url)
     if access_token is None:
         return redirect(next_url)
@@ -140,7 +140,7 @@ def login():
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
-    return redirect(url_for('index', _scheme='https'))
+    return redirect(url_for('index', _scheme='https', external=True))
 
 
 @app.route('/user')
