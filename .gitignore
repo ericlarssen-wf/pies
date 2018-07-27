@@ -48,3 +48,5 @@ bower_components
 
 # Generated testing project
 python_dockerdev
+
+config_local.py

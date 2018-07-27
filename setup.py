@@ -20,7 +20,7 @@ dependency_links = [
     x.strip().replace('git+', '') for x in all_reqs if x.startswith('git+')
 ]
 
-setup(
+setup_args = dict(
     name='pies',
     version=__version__,
     description='Pointless app',
@@ -40,5 +40,8 @@ setup(
     install_requires=install_requires,
     dependency_links=dependency_links,
     author_email='ericlarssen@workiva.com',
-    entry_points={'console_scripts': ['pies=pies.main:run']},
+    entry_points={'console_scripts': ['pies=pies.scripts.pies:main']},
 )
+
+if __name__ == '__main__':
+    setup(**setup_args)

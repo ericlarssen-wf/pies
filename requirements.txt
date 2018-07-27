@@ -1,6 +1,3 @@
-GitHub-Flask
-flask
-app_intelligence
-pyformance
-Flask-SQLAlchemy
-pyOpenSSL>=16, <17
+setuptools==26.1.1
+flaskiva
+flask_yarl==0.3.0

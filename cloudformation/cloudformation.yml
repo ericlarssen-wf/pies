@@ -24,6 +24,9 @@ Parameters:
   SecretKey:
     Description: The Secret Key.
     Type: String
+  ServerName:
+    Description: The name of the server.
+    Type: String
 Resources:
   ECSTaskDef:
     Type: AWS::ECS::TaskDefinition
@@ -41,12 +44,20 @@ Resources:
               Value: !Ref GithubClientSecret
             - Name: SECRET_KEY
               Value: !Ref SecretKey
+            - Name: SERVER_NAME
+              Value: !Ref ServerName
+            - Name: GITHUB_SCOPE
+              Value: !Ref GithubScope
+            - Name: GITHUB_WHITELISTED_ORGS
+              Value: !Ref GithubWhitelistedOrgs
           Essential: true
           Image: !Ref DockerImage
           Memory: 512
           Name: !Ref ServiceName
-          EntryPoint:
+          Cmd:
             - "pies"
+            - "config.py"
+            - "--proxy"
       Volumes: []
   ECSService:
     Type: AWS::ECS::Service
