@@ -108,11 +108,12 @@ def token_getter():
     if user is not None:
         return user.github_access_token
 
-
+# https://pies.inf-dev.workiva.org/login?next=%Fuser
 @app.route('/github-callback')
 @github.authorized_handler
 def authorized(access_token):
     next_url = request.args.get('next') or url_for('index')
+    logger.error('next_url: ' + next_url)
     if access_token is None:
         return redirect(next_url)
 
