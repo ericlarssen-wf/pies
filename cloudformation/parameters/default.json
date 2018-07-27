@@ -18,13 +18,5 @@
   {
     "ParameterKey": "ServerName",
     "ParameterValue": "pies.inf-dev.workiva.org"
-  },
-  {
-    "ParameterKey": "GithubScope",
-    "ParameterValue": "user,repo"
-  },
-  {
-    "ParameterKey": "GithubWhitelistedOrgs",
-    "ParameterValue": "Workiva"
   }
 ]
