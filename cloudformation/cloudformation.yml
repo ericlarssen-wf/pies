@@ -54,7 +54,7 @@ Resources:
           Image: !Ref DockerImage
           Memory: 512
           Name: !Ref ServiceName
-          Cmd:
+          Command:
             - "pies"
             - "config.py"
             - "--proxy"
