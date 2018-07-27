@@ -1,35 +1,47 @@
-import os, time
-from setuptools import find_packages, setup
-from pip.req import parse_requirements
+import re
+from codecs import open
 
-def get_requirements(filename):
-    reqs = parse_requirements(filename)
-    return [str(r.req) for r in reqs]
+from setuptools import setup, find_packages
 
-def get_install_requires():
-    return get_requirements('requirements.txt')
+__version__ = '0.0.1'
 
-def get_test_requires():
-    return get_requirements('requirements_dev.txt')
+# Get the long description from the README file
+with open('README.md', encoding='utf-8') as f:
+    long_description = f.read()
+
+# get the dependencies and installs
+with open('requirements.txt', encoding='utf-8') as f:
+    all_reqs = f.read().split('\n')
+
+install_requires = [
+    re.sub(r'--hash=.*', '', x.strip()) for x in all_reqs if 'git+' not in x
+]
+dependency_links = [
+    x.strip().replace('git+', '') for x in all_reqs if x.startswith('git+')
+]
 
 setup_args = dict(
     name='pies',
-    version='0.0.1',
-    packages=find_packages(),
-    namespace_packages=['pies'],
-    install_requires=get_install_requires(),
-    tests_require=get_test_requires(),
-    entry_points={
-        'console_scripts': [
-            'pies-test=pies.util:say_hello'
-        ]
-    }
+    version=__version__,
+    description='Pointless app',
+    long_description=long_description,
+    url='https://github.com/workiva/pies',
+    download_url='https://github.com/workiva/pies/tarball/' + __version__,
+    license='MIT',
+    classifiers=[
+        'Development Status :: 3 - Alpha',
+        'Intended Audience :: Developers',
+        'Programming Language :: Python :: 3',
+    ],
+    keywords='',
+    packages=find_packages(exclude=['docs', 'tests*']),
+    include_package_data=True,
+    author='Eric Larssen',
+    install_requires=install_requires,
+    dependency_links=dependency_links,
+    author_email='ericlarssen@workiva.com',
+    entry_points={'console_scripts': ['pies=pies.scripts.pies:main']},
 )
 
 if __name__ == '__main__':
-    if os.environ.get('EAT_PIES_SLOWLY'):
-        len = float(os.getenv('EAT_PIES_SLOWLY', 10))
-        print "Going to have a nice little nap for {0} seconds".format(len)
-        time.sleep(len)
-
     setup(**setup_args)
