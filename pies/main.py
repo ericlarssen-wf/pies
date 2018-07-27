@@ -132,7 +132,7 @@ def authorized(access_token):
 @app.route('/login')
 def login():
     if session.get('user_id', None) is None:
-        return github.authorize()
+        return github.authorize(redirect_uri=url_for('user', _scheme='https', _external=True))
     else:
         return 'Already logged in'
 
