@@ -132,7 +132,7 @@ def authorized(access_token):
 @app.route('/login')
 def login():
     if session.get('user_id', None) is None:
-        return github.authorize(redirect_uri=url_for('user', _scheme='https', _external=True))
+        return github.authorize(redirect_uri=url_for('callback_user', _scheme='https', _external=True))
     else:
         return 'Already logged in'
 
@@ -147,6 +147,9 @@ def logout():
 def user():
     return str(github.get('user'))
 
+@app.route('/github-callback/user')
+def callback_user():
+    return str(github.get('user'))
 
 def run():
     init_db()
