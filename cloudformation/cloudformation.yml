@@ -57,7 +57,6 @@ Resources:
           Command:
             - "pies"
             - "config.py"
-            - "--proxy"
       Volumes: []
   ECSService:
     Type: AWS::ECS::Service
