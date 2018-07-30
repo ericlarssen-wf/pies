@@ -2,15 +2,25 @@
 # Start build stage
 FROM python:2.7 as build
 
+ARG GIT_SSH_KEY
+ARG KNOWN_HOSTS_CONTENT
+
+RUN mkdir /root/.ssh
+RUN echo "$KNOWN_HOSTS_CONTENT" > "/root/.ssh/known_hosts"
+RUN chmod 700 /root/.ssh/
+RUN umask 0077 && echo "$GIT_SSH_KEY" >/root/.ssh/id_rsa
+RUN eval "$(ssh-agent -s)" && ssh-add /root/.ssh/id_rsa
+
 # Install node so we can use markdown-magic for README.md
 RUN curl --silent --location https://deb.nodesource.com/setup_8.x | bash -
-RUN apt-get install -y nodejs
+RUN apt-get install -y nodejs git-core
 RUN npm install -g markdown-magic
 
 ARG PIP_INDEX_URL
 ARG PIP_EXTRA_INDEX_URL=https://pypi.python.org/simple/
 
 RUN pip install pip==9.0.3
+
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
