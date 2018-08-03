@@ -17,3 +17,7 @@ INSTALLED_APPS = [
 SERVER_NAME = os.getenv('SERVER_NAME')
 SECRET_KEY = 'secret_key'
 CSRF_ENABLED = False
+
+num_proto = os.getenv('PROXY_NUM_PROTO')
+if num_proto:
+    PROXY_NUM_PROTO = num_proto

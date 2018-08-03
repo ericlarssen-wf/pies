@@ -13,7 +13,7 @@ RUN eval "$(ssh-agent -s)" && ssh-add /root/.ssh/id_rsa
 
 # Install node so we can use markdown-magic for README.md
 RUN curl --silent --location https://deb.nodesource.com/setup_8.x | bash -
-RUN apt-get install -y nodejs git-core
+RUN apt-get install -y nodejs
 RUN npm install -g markdown-magic
 
 ARG PIP_INDEX_URL
