@@ -1,0 +1,4 @@
+FROM busybox
+
+ENTRYPOINT ["echo"]
+
