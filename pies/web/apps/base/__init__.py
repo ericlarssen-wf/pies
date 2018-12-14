@@ -14,6 +14,7 @@ def init_app(app):
 
 @blueprint.route('/')
 def index():
+    # t = 'Hello!'
     if auth.current_user:
         t = 'Hello! <a href="{{ url_for("pies.api.user") }}">Get user</a> ' \
             '<a href="{{ url_for("pies.base.logout") }}">Logout</a>'

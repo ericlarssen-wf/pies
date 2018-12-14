@@ -1,46 +1,47 @@
-import re
-from codecs import open
+import os
+from setuptools import find_packages, setup
 
-from setuptools import setup, find_packages
 
-__version__ = '0.0.1'
+def get_version():
+    import imp
 
-# Get the long description from the README file
-with open('README.md', encoding='utf-8') as f:
-    long_description = f.read()
+    pkg_meta = imp.load_source('_pkg_meta', 'pies/web/_pkg_meta.py')
 
-# get the dependencies and installs
-with open('requirements.txt', encoding='utf-8') as f:
-    all_reqs = f.read().split('\n')
+    return pkg_meta.version
 
-install_requires = [
-    re.sub(r'--hash=.*', '', x.strip()) for x in all_reqs if 'git+' not in x
-]
-dependency_links = [
-    x.strip().replace('git+', '') for x in all_reqs if x.startswith('git+')
-]
+
+def read(filename):
+    """Read file content."""
+    path = os.path.realpath(os.path.join(os.path.dirname(__file__), filename))
+    with open(path, 'rb') as f:
+        return f.read().decode('utf-8')
+
+
+def get_requirements(filename):
+    return [dep.strip() for dep in read(filename).split('\n') if dep.strip()]
+
+
+def get_install_requires():
+    return get_requirements('requirements.txt')
+
+
+def get_test_requires():
+    return get_requirements('requirements_dev.txt')
+
 
 setup_args = dict(
     name='pies',
-    version=__version__,
-    description='Pointless app',
-    long_description=long_description,
-    url='https://github.com/workiva/pies',
-    download_url='https://github.com/workiva/pies/tarball/' + __version__,
-    license='MIT',
-    classifiers=[
-        'Development Status :: 3 - Alpha',
-        'Intended Audience :: Developers',
-        'Programming Language :: Python :: 3',
-    ],
-    keywords='',
-    packages=find_packages(exclude=['docs', 'tests*']),
+    version=get_version(),
+    packages=find_packages(),
+    namespace_packages=['pies', 'pies.scripts'],
+    install_requires=get_install_requires(),
+    tests_require=get_test_requires(),
     include_package_data=True,
-    author='Eric Larssen',
-    install_requires=install_requires,
-    dependency_links=dependency_links,
-    author_email='ericlarssen@workiva.com',
-    entry_points={'console_scripts': ['pies=pies.scripts.pies:main']},
+    entry_points={
+        'console_scripts': [
+            'pies=pies.scripts.pies:main',
+        ]
+    },
 )
 
 if __name__ == '__main__':
