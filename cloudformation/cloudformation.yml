@@ -26,10 +26,10 @@ Resources:
     Type: AWS::RDS::DBInstance  
     DeletionPolicy: Retain
     Properties:
-      AllocatedStorage: db.r4.large
+      AllocatedStorage: 120
       AllowMajorVersionUpgrade: false
       BackupRetentionPeriod: 1
-      DBInstanceClass: !Ref DBInstanceClass
+      DBInstanceClass: db.r4.large
       DBInstanceIdentifier: !Sub ${ServiceName}-${ClusterName}-${AWS::Region}
       DBName: !Ref DBName
       DBSubnetGroupName:
@@ -41,18 +41,18 @@ Resources:
       MultiAZ: true
       PubliclyAccessible: false
       StorageEncrypted: true
-      StorageType: !Ref DBStorageType
+      StorageType: standard
       Tags:
         - Key: Name
           Value: !Sub pies ${ClusterName}
         - Key: Role
-          Value: !Ref Role
+          Value: Dev
         - Key: Service
-          Value: !Ref Service
+          Value: Pies
         - Key: Business-Unit
-          Value: !Ref BusinessUnit
+          Value: INFRE
         - Key: Owner
-          Value: !Ref Owner
+          Value: INFENG
       VPCSecurityGroups:
         - Fn::ImportValue:
             !Sub harbour:${AWS::Region}:${ClusterName}:RDSSecurityGroup
