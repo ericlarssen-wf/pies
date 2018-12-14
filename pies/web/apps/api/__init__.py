@@ -4,7 +4,7 @@ from flaskiva.util import load_modules
 from werkzeug import LocalProxy
 
 
-api = yarl.API(name='pies.api', url_prefix='/api', version=1)
+api = yarl.API(name='pies.api', url_prefix='/s/pies/api', version=1)
 
 
 def init_app(app):
