@@ -43,14 +43,7 @@ ingress:
   rules:
     # Rules for h.<clusterDomain> (ex. h.wk-dev.wdesk.org).
     # TODO : Update backends and potentially pathPrefix for your PBR routes
-    - subDomain: k
-      pathPrefix: /s/pies
-      backends:
-        # Matches /s/pies/
-        - path: /
-          port: 5000
-    - subDomain: h
-      pathPrefix: /s/pies
+    - subDomain: pies
       backends:
         # Matches /s/pies/
         - path: /
@@ -61,6 +54,10 @@ ingress:
 environment:
   MSG_URL: "tls://nats-nats.workiva.svc.cluster.local:4222"
   MSG_CA_CERT: "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+  GITHUB_CLIENT_ID: ''
+  GITHUB_CLIENT_SECRET: ''
+  SERVER_NAME: ''
+  FLASKIVA_AUTH_PROVIDER: 'github'
 
 # Secret values to be supplied to containers as environment variables.
 # Secrets should not be committed to code and should be supplied at runtime.

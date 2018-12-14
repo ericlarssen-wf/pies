@@ -19,7 +19,7 @@ def init_app(app):
     app.register_blueprint(blueprint)
 
 
-@blueprint.route('/s/pies')
+@blueprint.route('/pies')
 def index():
     if auth.current_user:
         t = 'Hello! <a href="{{ url_for("pies.api.user") }}">Get user</a> ' \
@@ -28,7 +28,7 @@ def index():
     return render_template_string(t)
 
 @auth.exempt
-@blueprint.route('/s/pies/health')
+@blueprint.route('/health')
 def health():
     try:
         core_config = config.load('pies.core')
@@ -53,7 +53,7 @@ def health():
         return 'DB Exception', 500
 
 @auth.exempt
-@blueprint.route('/s/pies/logout')
+@blueprint.route('/logout')
 def logout():
     session.clear()
     auth.ctx.logout()

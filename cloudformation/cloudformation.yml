@@ -41,7 +41,6 @@ Resources:
       MultiAZ: false
       PubliclyAccessible: false
       StorageEncrypted: true
-      StorageType: standard
       Tags:
         - Key: Name
           Value: !Sub pies ${ClusterName}
