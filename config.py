@@ -12,7 +12,8 @@ DATABASE_URI = os.getenv('DATABASE_URI', 'sqlite:////tmp/github-flask.db')
 INSTALLED_APPS = [
     'pies.web.apps.api',
     'pies.web.apps.base',
-    'pies.web.apps.authz'
+    'pies.web.apps.authz',
+    'pies.web.apps.authn'
 ]
 
 SESSION_REDIS_HOSTS = None

@@ -1,0 +1,15 @@
+apiVersion: v1
+name: pies
+description: A Helm chart for pies
+version: '0.1.0'
+
+# Update with your team name, i.e. infeng, testeng
+# You should be able to find your teams abbreviation in
+# https://w-rmconsole.appspot.com/api/internal/settings/release_teams/
+team: infre
+
+
+# http_public - The service is publicly exposed, and can be reached with HTTPS requests.
+serviceAvailability:
+  type: http_public
+

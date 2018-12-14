@@ -3,6 +3,7 @@ import functools
 from flask import abort, blueprints, current_app, g, request
 from flaskiva.ext import db
 
+
 blueprint = blueprints.Blueprint(
     'pies.auth',
     __name__
