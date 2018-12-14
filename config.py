@@ -1,7 +1,4 @@
-print 'config.py'
 import os
-
-print 'config.py'
 
 FLASKIVA_AUTH_PROVIDER = 'github'
 
