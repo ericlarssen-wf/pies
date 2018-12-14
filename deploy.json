@@ -5,7 +5,8 @@
       "template": "cloudformation/cloudformation.yml",
       "parameters": "cloudformation/parameters/default.json",
       "region": "us-west-2",
-      "stackPolicy": "cloudformation/policies/default-stack-policy.json"
+      "stackPolicy": "cloudformation/policies/default-stack-policy.json",
+      "updatePolicy": "cloudformation/policies/default-stack-policy.json"
     }
   ]
 }
