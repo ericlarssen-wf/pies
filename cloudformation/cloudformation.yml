@@ -38,7 +38,7 @@ Resources:
       Engine: aurora
       MasterUsername: !Ref DBUser
       MasterUserPassword: !Ref DBPassword
-      MultiAZ: true
+      MultiAZ: false
       PubliclyAccessible: false
       StorageEncrypted: true
       StorageType: standard
