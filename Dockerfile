@@ -10,7 +10,7 @@ RUN npm install -g markdown-magic
 ARG PIP_INDEX_URL
 ARG PIP_EXTRA_INDEX_URL=https://pypi.python.org/simple/
 
-RUN pip install pip==9.0.3
+RUN pip install pip==18.1
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
@@ -33,7 +33,7 @@ FROM python:2.7
 COPY --from=check /build/dist/* /dist/
 EXPOSE 5000
 
-RUN pip install pip==9.0.3
+RUN pip install pip==18.1
 RUN pip install --no-index --find-links=/dist $(find /dist -name \*.whl -or -name \*.tar.gz)
-ADD config.py /config.py
+COPY config.py /config.py
 # End final container
