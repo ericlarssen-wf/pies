@@ -50,3 +50,4 @@ bower_components
 python_dockerdev
 
 config_local.py
+.vscode

@@ -4,19 +4,7 @@
     "ParameterValue": "inf-dev-cf"
   },
   {
-    "ParameterKey": "GithubClientId",
-    "ParameterValue": "{{PiesGithubClientIdInfDev}}"
-  },
-  {
-    "ParameterKey": "GithubClientSecret",
-    "ParameterValue": "{{PiesGithubClientSecretInfDev}}"
-  },
-  {
-    "ParameterKey": "SecretKey",
-    "ParameterValue": "{{PiesSecretKeyInfDev}}"
-  },
-  {
-    "ParameterKey": "ServerName",
-    "ParameterValue": "pies.inf-dev.workiva.org"
+    "ParameterKey": "DBPassword",
+    "ParameterValue": "{{PiesDatabasePasswordInfDev}}"
   }
 ]

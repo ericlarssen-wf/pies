@@ -17,7 +17,7 @@ def get_arg_parser():
     Get shell argument parser.
     """
     parser = argparse.ArgumentParser(
-        description='Entrypoint for harbour-orchestrator-api.'
+        description='Entrypoint for pies.'
     )
 
     parser.add_argument('config', help='config file')
@@ -28,7 +28,7 @@ def get_arg_parser():
 
 def main():
     """
-    harbour-orchestrator-api main entry point.
+    Pies main entry point.
     """
     parser = get_arg_parser()
 
@@ -42,4 +42,10 @@ def main():
         config=app_config
     )
 
+    logging.getLogger("requests").setLevel(logging.WARNING)
+
     server.run(args, app)
+
+
+if __name__ == '__main__':
+    main()

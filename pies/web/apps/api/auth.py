@@ -3,9 +3,8 @@ import functools
 from flask import abort, blueprints, current_app, g, request
 from flaskiva.ext import db
 
-
 blueprint = blueprints.Blueprint(
-    'harbour.orchestrator.auth',
+    'pies.auth',
     __name__
 )
 

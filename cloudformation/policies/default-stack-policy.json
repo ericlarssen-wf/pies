@@ -19,7 +19,8 @@
       "Condition" : {
         "StringEquals" : {
           "ResourceType" : [
-            "AWS::ECS::TaskDefinition"
+            "AWS::ECS::TaskDefinition",
+            "AWS::ECS::Service"
           ]
         }
       }
