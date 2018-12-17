@@ -26,6 +26,7 @@ Resources:
     Type: AWS::RDS::DBInstance  
     DeletionPolicy: Retain
     Properties:
+      AllocatedStorage: 120
       AllowMajorVersionUpgrade: false
       BackupRetentionPeriod: 1
       DBInstanceClass: db.r4.large

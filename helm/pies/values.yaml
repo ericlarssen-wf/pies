@@ -7,7 +7,7 @@
 image:
   registry: drydock.workiva.net
   repo: ericlarssen-wf/pies
-  tag: 'latest-release'
+  tag: '1558609'
   # Uncomment to specify a full docker image for local development
   # override: local_testing_image_name:latest
 
@@ -95,7 +95,7 @@ runAsRoot: false
 # Http example
 readinessProbe:
  httpGet:
-   path: /s/pies/health
+   path: /health
    port: 5000
  initialDelaySeconds: 5
  periodSeconds: 10
