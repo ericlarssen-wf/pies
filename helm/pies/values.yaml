@@ -50,7 +50,6 @@ ingress:
           port: 5000
 
 # Environment variables.
-# TODO : Define extra Env variables
 environment:
   MSG_URL: "tls://nats-nats.workiva.svc.cluster.local:4222"
   MSG_CA_CERT: "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
@@ -61,9 +60,9 @@ environment:
 
 # Secret values to be supplied to containers as environment variables.
 # Secrets should not be committed to code and should be supplied at runtime.
-# TODO : Define secrets
 secrets:
   DATABASE_URI: ''
+  SECRET_KEY: ''
 
 # Mounted files
 # See: https://kubernetes.io/docs/concepts/configuration/secret/
