@@ -37,6 +37,9 @@ resources:
 runAsRoot: false
 readinessProbe:
   httpGet:
+    httpHeaders:
+      - name: Host
+        value: pies.inf-dev.workiva.org
     path: /health
     port: 5000
   initialDelaySeconds: 5
