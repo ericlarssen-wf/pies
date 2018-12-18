@@ -19,7 +19,7 @@ def init_app(app):
     app.register_blueprint(blueprint)
 
 
-@blueprint.route('/pies')
+@blueprint.route('/')
 def index():
     if auth.current_user:
         t = 'Hello! <a href="{{ url_for("pies.api.user") }}">Get user</a> ' \

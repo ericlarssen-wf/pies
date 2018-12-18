@@ -10,7 +10,7 @@ metadata:
   annotations:
     # This is what defines this resource as a hook. Without this line, the
     # job is considered part of the release.
-    "helm.sh/hook": pre-install, pre-upgrade
+    "helm.sh/hook": post-install, pre-upgrade
     "helm.sh/hook-weight": "-5"
     "helm.sh/hook-delete-policy": hook-succeeded
 spec:
@@ -41,7 +41,7 @@ spec:
               - NET_BIND_SERVICE
           {{- end }}
           command: ['atlas']
-          args: ['pies.core', '$DATABASE_URI']
+          args: ['pies.core', '$(DATABASE_URI)']
           env:
             {{- range $key, $value := .Values.environment }}
             - name: {{ $key }}

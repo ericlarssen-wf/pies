@@ -1,77 +1,32 @@
 ---
-# Default values for template.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
-# Docker image to run.
 image:
   registry: drydock.workiva.net
   repo: ericlarssen-wf/pies
-  tag: '1558609'
-  # Uncomment to specify a full docker image for local development
-  # override: local_testing_image_name:latest
-
-# Number of pods replicas to run.
-# TODO
-replicas: 3
-
-# The arn of the IAM role to be given to your container
-# Example: arn:aws:iam::<account>:role/<name>
-# TODO
-#iamRole: ''
-
-# The minimum number of available pods during updates
+  tag: '1562091'
+replicas: 2
 minAvailable: 75%
-
-# Autoscaling configuration, configures the horizontal pod autoscaler and pod disruption budget.
-# HPA: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
-# PodDisruptionBudget: https://kubernetes.io/docs/concepts/workloads/pods/disruptions/
 autoscaling:
-  # minReplicas: 1
-  # maxReplicas: 9
+  minReplicas: 1
+  maxReplicas: 3
   metrics:
-  # - type: cpu
-  #   average_percent: 75
-  # - type: memory
-  #   average_percent: 75
-
-# Ingress configuration
-# See: https://kubernetes.io/docs/concepts/services-networking/ingress/
+    - type: cpu
+      average_percent: 75
 ingress:
-  # Base domain for the cluster (ex. wk-dev.wdesk.org, app.wdesk.org).
   clusterDomain: 'inf-dev.workiva.org'
   rules:
-    # Rules for h.<clusterDomain> (ex. h.wk-dev.wdesk.org).
-    # TODO : Update backends and potentially pathPrefix for your PBR routes
     - subDomain: pies
       backends:
-        # Matches /s/pies/
-        - path: /
-          port: 5000
-
-# Environment variables.
+        - port: 5000
 environment:
   MSG_URL: "tls://nats-nats.workiva.svc.cluster.local:4222"
   MSG_CA_CERT: "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+  FLASKIVA_AUTH_PROVIDER: 'github'
   GITHUB_CLIENT_ID: ''
   GITHUB_CLIENT_SECRET: ''
   SERVER_NAME: ''
-  FLASKIVA_AUTH_PROVIDER: 'github'
-
-# Secret values to be supplied to containers as environment variables.
-# Secrets should not be committed to code and should be supplied at runtime.
 secrets:
   DATABASE_URI: ''
   SECRET_KEY: ''
-
-# Mounted files
-# See: https://kubernetes.io/docs/concepts/configuration/secret/
-# files:
-#   filename: ''
-
-# Resources allocated to your container.
-# See: https://kubernetes.io/docs/concepts/policy/resource-quotas/
-# TODO : Update limits and requests to tailor to your service
 resources:
   limits:
     cpu: 1.00
@@ -79,63 +34,11 @@ resources:
   requests:
     cpu: 1.00
     memory: 1024Mi
-
-
-# The runAsRoot setting determines if your contianer will run with root privileges. 
-# In order to improve security this should be set to false.
-# TODO: You should check if your application behaves correctly when it does not have root privileges.
 runAsRoot: false
-
-# The readinessProbe defines when your service is considered ready for traffic.
-# It is similar to Harbour Health checks.
-# See: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
-# TODO: You should use readinessProbes, please implement them.
-
-# Http example
 readinessProbe:
- httpGet:
-   path: /health
-   port: 5000
- initialDelaySeconds: 5
- periodSeconds: 10
- timeoutSeconds: 10
- successThreshold: 1
- failureThreshold: 3
-
-# Exec example:
-# readinessProbe:
-#  exec:
-#    command:
-#      - /readiness-check.sh
-#  initialDelaySeconds: 5
-#  periodSeconds: 10
-#  timeoutSeconds: 10
-#  successThreshold: 1
-#  failureThreshold: 3
-
-
-# If possible you should define a livenessProbe. This check will cause your container
-# to restart if it fails a default of three times in a row.
-# See: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
-# TODO: You should use livenessProbe.
-
-# Http example
-# livenessProbe:
-#  httpGet:
-#    path: /liveness_check
-#    port: 8080
-#  initialDelaySeconds: 5
-#  periodSeconds: 10
-#  timeoutSeconds: 10
-#  failureThreshold: 3
-
-# Exec example:
-# livenessProbe:
-#  exec:
-#    command:
-#      - /liveness-check.sh
-#  initialDelaySeconds: 5
-#  periodSeconds: 10
-#  timeoutSeconds: 10
-#  failureThreshold: 3
-
+  httpGet:
+    path: /health
+    port: 5000
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 10
