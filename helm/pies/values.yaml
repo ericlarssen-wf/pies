@@ -2,7 +2,7 @@
 image:
   registry: drydock.workiva.net
   repo: ericlarssen-wf/pies
-  tag: '1562688'
+  tag: '1623021'
 replicas: 2
 minAvailable: 75%
 autoscaling:
