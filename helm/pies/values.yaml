@@ -2,7 +2,7 @@
 image:
   registry: drydock.workiva.net
   repo: ericlarssen-wf/pies
-  tag: '1562091'
+  tag: '1562688'
 replicas: 2
 minAvailable: 75%
 autoscaling:
@@ -22,11 +22,11 @@ environment:
   MSG_CA_CERT: "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
   FLASKIVA_AUTH_PROVIDER: 'github'
   GITHUB_CLIENT_ID: ''
-  GITHUB_CLIENT_SECRET: ''
   SERVER_NAME: ''
 secrets:
   DATABASE_URI: ''
   SECRET_KEY: ''
+  GITHUB_CLIENT_SECRET: ''
 resources:
   limits:
     cpu: 1.00

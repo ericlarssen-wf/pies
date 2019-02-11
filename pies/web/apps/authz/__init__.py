@@ -33,7 +33,9 @@ def user_logged_in(app, **kwargs):
     if user:
         user.last_login = datetime.utcnow()
     else:
-        user = User(id=username, last_login=datetime.utcnow())
+        name = username.rstrip('@workiva.com')
+        name = name.replace('.', ' ')
+        user = User(id=username, last_login=datetime.utcnow(), name=name)
         db.session.add(user)
 
     db.session.commit()
