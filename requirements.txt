@@ -1,4 +1,0 @@
-setuptools==33.1.1
-flaskiva==0.7.2
-flask_yarl==0.3.1
-pymysql==0.9.2

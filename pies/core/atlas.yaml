@@ -1,8 +1,0 @@
-schema_prefix: pies
-
-modules:
-  - pies.core.**
-
-scripts_root: migration
-scripts:
-  - add_column.py
