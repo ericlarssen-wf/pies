@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "template.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ template "template.fullname" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    component: webhook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ template "template.fullname" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      component: webhook
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ template "template.fullname" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        component: webhook
+    spec:
+      serviceAccountName: {{ template "template.fullname" . }}
+      securityContext:
+        runAsNonRoot: true
+        runAsGroup: {{ .Values.gid | default 1000 }}
+        runAsUser: {{ .Values.uid | default 100 }}
+      containers:
+        - name: sidecar-injector
+          resources: {}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+          env:
+            - name: AGENT_INJECT_LISTEN
+              value: ":8080"
+            - name: AGENT_INJECT_LOG_LEVEL
+              value: {{ .Values.logLevel | default "info" }}
+            - name: AGENT_INJECT_VAULT_ADDR
+              value: {{ .Values.vaultAddr}}
+            - name: AGENT_INJECT_VAULT_IMAGE
+              value: "{{ .Values.agentImage.repository }}:{{ .Values.agentImage.tag }}"
+            - name: AGENT_INJECT_TLS_CERT_FILE
+              value: "/etc/webhook/certs/{{ .Values.certs.certName }}"
+            - name: AGENT_INJECT_TLS_KEY_FILE
+              value: "/etc/webhook/certs/{{ .Values.certs.keyName }}"
+          args:
+            - agent-inject
+            - 2>&1
+          livenessProbe:
+            httpGet:
+              path: /health/ready
+              port: 8080
+              scheme: HTTPS
+            failureThreshold: 2
+            initialDelaySeconds: 1
+            periodSeconds: 2
+            successThreshold: 1
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 8080
+              scheme: HTTPS
+            failureThreshold: 2
+            initialDelaySeconds: 2
+            periodSeconds: 2
+            successThreshold: 1
+            timeoutSeconds: 5
+          volumeMounts:
+            - name: webhook-certs
+              mountPath: /etc/webhook/certs
+              readOnly: true
+      volumes:
+        - name: webhook-certs
+          secret:
+            secretName: "{{ .Values.certs.secretName }}"

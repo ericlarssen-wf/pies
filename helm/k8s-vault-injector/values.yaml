@@ -1,0 +1,48 @@
+# Available parameters and their default values for the Vault chart.
+
+# image sets the repo and tag of the vault-k8s image to use for the injector.
+image:
+    repository: "hashicorp/vault-k8s"
+    tag: "0.1.2"
+    pullPolicy: IfNotPresent
+
+# agentImage sets the repo and tag of the Vault image to use for the Vault Agent
+# containers.  This should be set to the official Vault image.  Vault 1.3.1+ is
+# required.
+agentImage:
+    repository: "vault"
+    tag: "1.3.1"
+
+# namespaceSelector is the selector for restricting the webhook to only
+# specific namespaces. This should be set to a multiline string.
+# See https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-namespaceselector
+# for more details.
+# Example:
+# namespaceSelector: |
+#    matchLabels:
+#      sidecar-injector: enabled
+namespaceSelector: {}
+
+vaultAddr: "https://vault-dev.workiva.org/"
+
+certs:
+    # caBundle is a base64-encoded PEM-encoded certificate bundle for the
+    # CA that signed the TLS certificate that the webhook serves. This must
+    # be set if secretName is non-null.
+    caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUN5RENDQWJDZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRFNU1EUXhPREl4TURNek9Wb1hEVEk1TURReE5USXhNRE16T1Zvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBS2JLCnh6aklYNjFjVXpsVXlIMXZRbHhFV21iN2dqbXlsZXJ1YjR3bFVYNlcycjljdVJLUW5XQWFtUE9PUnA1N2dvY24KWE5iVjRuZDhZbVhJdTN4SHhHT2pSN1BoNG0vcUtPd3VzZUI1cGlhV1gyV3dCbXpjaDE2cCtIUE5ydXp4ZVozWgpjNkxmT0RHb0lKZzRQRUxEWWRON2VsZm11QkJmcDJIOTVmWndxbkZUZnRPSlVzaGhYc1p4WVBNT3FiREFyWnU5CmR6RU1NYVI3SXJLQjhkWXgrYkdoTzFMajJpN2R2WEpZdjNmSHVoTTQwWTRnL1Z3QWtJQllrWFpXejNxd05qVUoKaEVGR21majBOR2ZSUDhSQ3U4T2RhRmJ2VFdYeEdkaHZmSlN6M2xzdHlPZFFlLzkzek51Tkg2Tno3TkVtL1dTUApOUENGL2tQRjhxUHN1MzV0amVjQ0F3RUFBYU1qTUNFd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0RRWUpLb1pJaHZjTkFRRUxCUUFEZ2dFQkFIYlphNHBqak5ka2ZpSzJMcHVKMVdXTnYyYmYKOVRaL2NtN3hWUGsyMjYvcnBNeWNQZFhndVpPZUdUNXFxM1l2TDJ6R3ZvZ0FVT0ZOQ1BuR3hYcWhXREJCdlVSVQpVenN1RzFudXV1TFl6b1A1dHNVYnlETmcxTFYvOTFiN3Jha1JrRmFPVTJDWUhpSnMyRm0wellUdmJveWo3eWpvCm5XTk9ubFdnWU0ydVR4eXkrOUVpL3Q0bGVsV2htQ25KRjBocThvTlZKMW9OWmg3TmNaajBCdVBwT0s2UDJRKzkKbThBZ3E1R3FQM1VMaUlOVk96bXVzQmlOaVJSeHo4VDJBNi9WaUQyeDNySzIreUZHUWo3M2pRM01lQ01OdHlJcQpiYWxjK1N4R0VVSGpGZ0QwS3VOYTBaaU9zdUJUQmM3cER2UlN3V1RSM0RtanluUGVaYzh4dTJWVjFIQT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
+
+    # certName and keyName are the names of the files within the secret for
+    # the TLS cert and private key, respectively. These have reasonable
+    # defaults but can be customized if necessary.
+    certName: tls.crt
+    keyName: tls.key
+
+resources: {}
+# resources:
+#   requests:
+#     memory: 256Mi
+#     cpu: 250m
+#   limits:
+#     memory: 256Mi
+#     cpu: 250m
+

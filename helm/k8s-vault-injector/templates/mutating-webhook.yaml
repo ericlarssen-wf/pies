@@ -1,0 +1,25 @@
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: {{ template "template.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ template "template.fullname" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+webhooks:
+  - name: vault.hashicorp.com
+    clientConfig:
+      service:
+        name: {{ template "template.fullname" . }}
+        namespace: {{ .Release.Namespace }}
+        path: "/mutate"
+      caBundle: {{ .Values.certs.caBundle }}
+    rules:
+      - operations: ["CREATE", "UPDATE"]
+        apiGroups: [""]
+        apiVersions: ["v1"]
+        resources: ["pods"]
+{{- if .Values.namespaceSelector }}
+    namespaceSelector:
+{{ toYaml .Values.namespaceSelector | indent 6}}
+{{ end }}
