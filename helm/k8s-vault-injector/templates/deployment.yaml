@@ -41,10 +41,10 @@ spec:
               value: {{ .Values.vaultAddr}}
             - name: AGENT_INJECT_VAULT_IMAGE
               value: "{{ .Values.agentImage.repository }}:{{ .Values.agentImage.tag }}"
-            - name: AGENT_INJECT_TLS_CERT_FILE
-              value: "/etc/webhook/certs/{{ .Values.certs.certName }}"
-            - name: AGENT_INJECT_TLS_KEY_FILE
-              value: "/etc/webhook/certs/{{ .Values.certs.keyName }}"
+            - name: AGENT_INJECT_TLS_AUTO
+              value: {{ template "template.fullname" . }}
+            - name: AGENT_INJECT_TLS_AUTO_HOSTS
+              value: {{ template "template.fullname" . }},{{ template "template.fullname" . }}.{{ .Release.Namespace }},{{ template "template.fullname" . }}.{{ .Release.Namespace }}.svc
           args:
             - agent-inject
             - 2>&1
@@ -68,11 +68,3 @@ spec:
             periodSeconds: 2
             successThreshold: 1
             timeoutSeconds: 5
-          volumeMounts:
-            - name: webhook-certs
-              mountPath: /etc/webhook/certs
-              readOnly: true
-      volumes:
-        - name: webhook-certs
-          secret:
-            secretName: "{{ .Values.certs.secretName }}"
