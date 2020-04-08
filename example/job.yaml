@@ -1,0 +1,31 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pgdump
+spec:
+  backoffLimit: 0
+  template:
+    metadata:
+      name: pgdump
+      labels:
+        app: pgdump
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/agent-inject-template-public: |
+          {{- with secret "workiva-deploy/kubernetes/wk-dev/canary-api/public" -}}
+          {{ .Data.iamRole }}
+          {{ end }}
+        vault.hashicorp.com/role: "kubernetes-controller"
+        # vault.hashicorp.com/agent-pre-populate-only: "true"
+    spec:
+      serviceAccountName: vault-auth
+      containers:
+      - name: pgdump
+        image: postgres:11.5
+        command:
+          - "/bin/sh"
+          - "-ec"
+        args:
+          - "cat /vault/secrets/*; sleep infinity"
+      restartPolicy: Never
