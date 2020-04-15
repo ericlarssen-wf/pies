@@ -6,10 +6,10 @@ Parameters:
     Type: String
 Resources:
   CFDeployerS3Bucket:
-    AccessControl: Private
     Type: AWS::S3::Bucket
     DeletionPolicy: Retain
     Properties:
+      AccessControl: Private
       BucketName: !Ref BucketName
       VersioningConfiguration:
         Status: Enabled
