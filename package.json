@@ -1,0 +1,8 @@
+{
+  "name": "w_transport",
+  "version": "2.9.2",
+  "devDependencies": {
+    "http": "0.0.0",
+    "sockjs": "^0.3.15"
+  }
+}

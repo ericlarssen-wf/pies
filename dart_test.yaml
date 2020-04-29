@@ -1,0 +1,11 @@
+platforms:
+  - chrome
+  - vm
+
+# The SockJS integration test server sometimes gets overloaded and rejects
+# connections. To mitigate this, retries are enabled.
+retry: 3
+
+presets:
+  travis:
+    reporter: expanded
