@@ -1,0 +1,68 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: ci-pub-dev-
+spec:
+  # entrypoint is the name of the template used as the starting point of the workflow
+  entrypoint: ci-pub-dev
+  # the 'ci-pub-dev' template accepts an parameter 'revision', with a default of 'master'.
+  # this can be overridden via argo CLI (e.g. `argo submit ci.yaml -p revision=0dea2d0`)
+  arguments:
+    parameters:
+    - name: revision
+      value: master
+
+  templates:
+  - name: ci-pub-dev
+    inputs:
+      parameters:
+      - name: revision
+    steps:
+    - - name: build
+        template: build-pub-dev
+        arguments:
+          parameters:
+          - name: revision
+            value: "{{inputs.parameters.revision}}"
+
+  - name: build-pub-dev
+    inputs:
+      parameters:
+      - name: revision
+      artifacts:
+      - name: code
+        path: /pub-dev
+        git:
+          repo: https://github.com/dart-lang/pub-dev.git
+          revision: "{{inputs.parameters.revision}}"
+
+    container:
+      image: docker:18.09.4-dind
+      command: [sh, -c]
+      args: ["
+        apk add git &&
+        cd /pub-dev &&
+        git status &&
+        time docker build .
+      "]
+      env:
+        - name: DOCKER_HOST
+          value: "127.0.0.1"
+    sidecars:
+      - name: dind
+        image: docker:18.09.4-dind
+        # mirrorVolumeMounts will mount the same volumes specified in the main container
+        # to the sidecar (including artifacts), at the same mountPaths. This enables
+        # dind daemon to (partially) see the same filesystem as the main container in
+        # order to use features such as docker volume binding.
+        mirrorVolumeMounts: true
+        securityContext:
+          privileged: true
+        resources:
+          limits:
+            memory: 32Gi
+            cpu: 8
+          requests:
+            memory: 32Gi
+            cpu: 8
+
